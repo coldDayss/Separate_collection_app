@@ -25,43 +25,76 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    TextView appName;
+    Button ImageSearch, Alarm, standard;
+
+
     private GpsTracker gpsTracker;
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
-    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
+    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        // 알람 페이지로 이동하기
+        Alarm = (Button) findViewById(R.id.alarm);
+
+        Alarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent("com.example.separate_collection_app.alarm_class"));
+            }
+
+        });
+
+
+
+        // 위치정보 불러오기
         if (!checkLocationServicesStatus()) {
 
             showDialogForLocationServiceSetting();
-        } else {
+        }else {
 
             checkRunTimePermission();
         }
-        final TextView textview_address = (TextView) findViewById(R.id.textView);
+
+        final TextView textview_address = (TextView)findViewById(R.id.GPStext);
 
 
-        Button ShowLocationButton = (Button) findViewById(R.id.button);
-        ShowLocationButton.setOnClickListener(new View.OnClickListener() {
+        Button ShowLocationButton = (Button) findViewById(R.id.GPSbutton);
+        ShowLocationButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View arg0) {
+            public void onClick(View arg0)
+            {
 
                 gpsTracker = new GpsTracker(MainActivity.this);
 
                 double latitude = gpsTracker.getLatitude();
                 double longitude = gpsTracker.getLongitude();
 
+                // 위치 정보를 문자열로 "address"에 저장한다.
                 String address = getCurrentAddress(latitude, longitude);
                 textview_address.setText(address);
 
-                Toast.makeText(MainActivity.this, "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
+                //Toast.makeText(MainActivity.this, "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "위치 조회가 완료되었습니다.", Toast.LENGTH_LONG).show();
             }
         });
     }
+
+
+    /*
+     * ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드입니다.
+     */
     @Override
     public void onRequestPermissionsResult(int permsRequestCode,
                                            @NonNull String[] permissions,
@@ -69,12 +102,12 @@ public class MainActivity extends AppCompatActivity {
 
         if ( permsRequestCode == PERMISSIONS_REQUEST_CODE && grandResults.length == REQUIRED_PERMISSIONS.length) {
 
-
+            // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면
 
             boolean check_result = true;
 
 
-
+            // 모든 퍼미션을 허용했는지 체크합니다.
 
             for (int result : grandResults) {
                 if (result != PackageManager.PERMISSION_GRANTED) {
@@ -111,7 +144,8 @@ public class MainActivity extends AppCompatActivity {
 
     void checkRunTimePermission(){
 
-
+        //런타임 퍼미션 처리
+        // 1. 위치 퍼미션을 가지고 있는지 체크합니다.
         int hasFineLocationPermission = ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
         int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(MainActivity.this,
@@ -121,23 +155,29 @@ public class MainActivity extends AppCompatActivity {
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                 hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
 
+            // 2. 이미 퍼미션을 가지고 있다면
+            // ( 안드로이드 6.0 이하 버전은 런타임 퍼미션이 필요없기 때문에 이미 허용된 걸로 인식합니다.)
+
+
+            // 3.  위치 값을 가져올 수 있음
 
 
 
+        } else {  //2. 퍼미션 요청을 허용한 적이 없다면 퍼미션 요청이 필요합니다. 2가지 경우(3-1, 4-1)가 있습니다.
 
-        } else {
-
-
+            // 3-1. 사용자가 퍼미션 거부를 한 적이 있는 경우에는
             if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, REQUIRED_PERMISSIONS[0])) {
 
-
+                // 3-2. 요청을 진행하기 전에 사용자가에게 퍼미션이 필요한 이유를 설명해줄 필요가 있습니다.
                 Toast.makeText(MainActivity.this, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
+                // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                 ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
 
 
             } else {
-
+                // 4-1. 사용자가 퍼미션 거부를 한 적이 없는 경우에는 퍼미션 요청을 바로 합니다.
+                // 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                 ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);
             }
@@ -240,3 +280,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+
+

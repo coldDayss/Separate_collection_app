@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.separate_collection_app">
+
+    //위치관련 권한을 추가한다
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
@@ -17,6 +19,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".alarm_class">
+            <intent-filter>
+                <action android:name="com.example.separate_collection_app.alarm_class" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
         </activity>
     </application>
 
