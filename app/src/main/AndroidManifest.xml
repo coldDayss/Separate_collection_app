@@ -2,9 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.separate_collection_app">
 
-    //위치관련 권한을 추가한다
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Separate_collection_app">
+        <activity android:name=".SearchGalleryScreenActivity"></activity>
+        <activity android:name=".SearchCameraScreenActivity"></activity>
+        <activity android:name=".SearchScreenActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +25,9 @@
         <activity android:name=".alarm_class">
             <intent-filter>
                 <action android:name="com.example.separate_collection_app.alarm_class" />
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
     </application>
 

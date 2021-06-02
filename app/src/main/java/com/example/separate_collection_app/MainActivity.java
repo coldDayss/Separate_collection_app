@@ -42,7 +42,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 검색 페이지로 이동하기
+        ImageSearch = (Button) findViewById(R.id.ImageSearch);
 
+        ImageSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent_ImageSearch = new Intent(getApplicationContext(), SearchScreenActivity.class);
+                startActivity(intent_ImageSearch);
+            }
+        });
 
         // 알람 페이지로 이동하기
         Alarm = (Button) findViewById(R.id.alarm);
