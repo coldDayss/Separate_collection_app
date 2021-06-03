@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 public class SearchScreenActivity extends AppCompatActivity {
@@ -28,5 +29,7 @@ public class SearchScreenActivity extends AppCompatActivity {
             Intent intent_gallery = new Intent(getApplicationContext(), SearchGalleryScreenActivity.class);
             startActivity(intent_gallery);
         });
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
     }
 }
