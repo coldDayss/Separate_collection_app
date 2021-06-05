@@ -26,7 +26,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     TextView appName;
-    Button ImageSearch, Alarm, standard;
+    Button ImageSearch, Alarm, seperate_screenBtn;
 
 
     private GpsTracker gpsTracker;
@@ -62,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent("com.example.separate_collection_app.alarm_class"));
             }
 
+        });
+
+        //우리 동네 배출 기준
+        seperate_screenBtn = (Button) findViewById(R.id.seperate_screen_btn);
+
+        seperate_screenBtn.setOnClickListener((v) -> {
+            Intent intent_seperate = new Intent(getApplicationContext(), SeperateScreenActivity.class);
+            startActivity(intent_seperate);
         });
 
 
