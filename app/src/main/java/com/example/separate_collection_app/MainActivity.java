@@ -106,7 +106,11 @@ public class MainActivity extends AppCompatActivity {
 
                 // 위치 정보를 문자열로 "address"에 저장한다.
                 String address = getCurrentAddress(latitude, longitude);
-                textview_address.setText(address);
+                String[] words = address.split("\\s");
+                String address2 = words[1] + " " + words[2] + " " + words[3];
+
+
+                textview_address.setText(address2);
 
                 //Toast.makeText(MainActivity.this, "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
                 Toast.makeText(MainActivity.this, "위치 조회가 완료되었습니다.", Toast.LENGTH_LONG).show();
