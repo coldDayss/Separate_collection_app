@@ -256,7 +256,7 @@ public class SearchGalleryScreenActivity extends AppCompatActivity {
     }
 
     private static class LableDetectionTask extends AsyncTask<Object, Void, String> {
-        private final WeakReference<MainActivity> mActivityWeakReference;
+        private final WeakReference<SearchGalleryScreenActivity> mActivityWeakReference;
         private Vision.Images.Annotate mRequest;
 
         LableDetectionTask(SearchGalleryScreenActivity activity, Vision.Images.Annotate annotate) {
@@ -281,7 +281,7 @@ public class SearchGalleryScreenActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute(String result) {
-            MainActivity activity = mActivityWeakReference.get();
+            SearchGalleryScreenActivity activity = mActivityWeakReference.get();
             if (activity != null && !activity.isFinishing()) {
                 TextView imageDetail = activity.findViewById(R.id.image_details);
                 imageDetail.setText(result);
