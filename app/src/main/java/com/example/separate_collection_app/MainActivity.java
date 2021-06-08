@@ -9,20 +9,23 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.example.separate_collection_app.activities.MainAlarmActivity;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+
 
 public class MainActivity extends AppCompatActivity {
     TextView appName;
@@ -59,7 +62,10 @@ public class MainActivity extends AppCompatActivity {
         Alarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent("com.example.separate_collection_app.alarm_class"));
+                Intent intent = new Intent(getApplicationContext(), MainAlarmActivity.class);
+                startActivity(intent);
+                //Intent intent = new Intent("com.example.separate_collection_app.MainAlarmActivity");
+                //startActivity(new Intent("com.example.separate_collection_app.alarm_class"));
             }
 
         });
