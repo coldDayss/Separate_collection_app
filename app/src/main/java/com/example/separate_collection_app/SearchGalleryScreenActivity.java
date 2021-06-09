@@ -85,7 +85,7 @@ public class SearchGalleryScreenActivity extends AppCompatActivity {
         mMainImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startGalleryChooser();
+                startCamera();
             }
 
 
